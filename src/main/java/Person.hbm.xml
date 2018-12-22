@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-4-6 22:25:49 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.nupal.pojo.Person" table="person" abstract="true">
+        <id name="personID" type="long">
+            <column name="personID" />
+            <generator class="native" />
+        </id>
+        <property name="fname" type="java.lang.String">
+            <column name="fname" />
+        </property>
+        <property name="lname" type="java.lang.String">
+            <column name="lname" />
+        </property>
+        <property name="gender" type="boolean">
+            <column name="gender" />
+        </property>
+        <property name="birth" type="java.util.Date">
+            <column name="birth" />
+        </property>
+        <property name="role">
+            <column name="role" />
+            <type name="org.hibernate.type.EnumType">
+            	<!--
+                <param name="type">12</param>
+                -->
+                <param name="enumClass">com.wechat.pojo.Person$Role</param>
+            </type>
+        </property>
+        <property name="email" type="java.lang.String">
+            <column name="email" />
+        </property>
+        <property name="cellPhone" type="java.lang.String">
+            <column name="cellphone" />
+        </property>
+        <property name="password" type="java.lang.String">
+            <column name="password" />
+        </property>
+        
+        
+        <joined-subclass name="com.nupal.pojo.Admin" table="admin">
+        	<key column="employeeID"/>
+        	
+        	<property name="userName" type="java.lang.String">
+        		<column name="userName" />
+        	</property>
+        </joined-subclass>
+        
+        <joined-subclass name="com.nupal.pojo.Customer" table="customer">
+        	<key column="customerID"/>
+        	
+        	<set name="friendIDList" table="link_friend">
+        		<key column="customerID" />
+        		<element type="long" column="friendID" not-null="true" />
+        	</set>
+        	
+        	
+        	
+        </joined-subclass>
+    </class>
+</hibernate-mapping>
